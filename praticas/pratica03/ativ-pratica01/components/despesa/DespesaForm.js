@@ -9,9 +9,11 @@ export default function DespesaForm({ onCancel, onSubmit, submitButtonLabel }) {
     valor: '',
     data: new Date(), 
     descricao: '',
+    categoria: '', 
   });
 
   const [showPicker, setShowPicker] = useState(false);
+
   function inputChangedHandler(inputIdentifier, enteredValue) {
     setInputs((curInputs) => {
       return { ...curInputs, [inputIdentifier]: enteredValue };
@@ -29,13 +31,15 @@ export default function DespesaForm({ onCancel, onSubmit, submitButtonLabel }) {
       valor: +inputs.valor, 
       data: inputs.data, 
       descricao: inputs.descricao,
+      categoria: inputs.categoria, 
     };
 
     const valorValido = !isNaN(despesaData.valor) && despesaData.valor > 0;
     const descricaoValida = despesaData.descricao.trim().length > 0;
+    const categoriaValida = despesaData.categoria.trim().length > 0; 
 
-    if (!valorValido || !descricaoValida) {
-      Alert.alert('Dados Inválidos', 'Por favor, confira os campos preenchidos.');
+    if (!valorValido || !descricaoValida || !categoriaValida) {
+      Alert.alert('Dados Inválidos', 'Por favor, confira os campos preenchidos e informe uma categoria.');
       return;
     }
 
@@ -76,9 +80,16 @@ export default function DespesaForm({ onCancel, onSubmit, submitButtonLabel }) {
       <Input
         label="Descrição"
         textInputConfig={{
-          multiline: true,
           onChangeText: inputChangedHandler.bind(this, 'descricao'),
           value: inputs.descricao,
+        }}
+      />
+
+      <Input
+        label="Categoria (ex: Lazer, Contas, Saúde)"
+        textInputConfig={{
+          onChangeText: inputChangedHandler.bind(this, 'categoria'),
+          value: inputs.categoria,
         }}
       />
 
@@ -104,8 +115,8 @@ export default function DespesaForm({ onCancel, onSubmit, submitButtonLabel }) {
 }
 
 const styles = StyleSheet.create({
-  form: { marginTop: 40 },
-  title: { fontSize: 24, fontWeight: 'bold', color: 'black', marginVertical: 24, textAlign: 'center' },
+  form: { marginTop: 10 },
+  title: { fontSize: 24, fontWeight: 'bold', color: 'black', marginVertical: 16, textAlign: 'center' },
   inputsRow: { flexDirection: 'row', justifyContent: 'space-between' },
   rowInput: { flex: 1, marginHorizontal: 4 }, 
   buttons: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 16 },
