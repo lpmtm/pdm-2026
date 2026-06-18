@@ -1,0 +1,55 @@
+@baseUrl = http://localhost:3000
+
+### 1. Health-check
+GET {{baseUrl}}/
+
+### 2. Listar categorias
+GET {{baseUrl}}/categories
+
+### 3. Criar uma nova categoria
+POST {{baseUrl}}/categories
+Content-Type: application/json
+
+{
+  "name": "test",
+  "displayName": "Teste",
+  "icon": "favorite",
+  "background": "#FFB6B6",
+  "isIncome": false
+}
+
+### 4. Atualizar categoria
+PUT {{baseUrl}}/categories/cmqk0opjj000111bdb9kt1n4d
+Content-Type: application/json
+
+{ 
+  "displayName": "Teste4" 
+}
+
+### 5. Excluir categoria
+DELETE {{baseUrl}}/categories/cmqk0opjj000111bdb9kt1n4d
+
+### 6. Criar transação
+POST {{baseUrl}}/transactions
+Content-Type: application/json
+
+{
+  "description": "Salário de outubro",
+  "value": 3500.50,
+  "date": "2026-04-29",
+  "categoryId": "cmpwuophv0004asdd5p8zchil"
+}
+
+### 7. Listar transações
+GET {{baseUrl}}/transactions
+
+### 8. Excluir transação
+DELETE {{baseUrl}}/transactions/cmqk0rfnf000311bdxjx3rqaa
+
+### 9. Validar erros (Zod)
+POST {{baseUrl}}/transactions
+Content-Type: application/json
+
+{ 
+  "description": "" 
+}

@@ -21,4 +21,8 @@ app.use(errorHandler);
 const port = process.env.PORT ?? 3000;
 app.listen(port, () => {
   console.log(`API rodando em http://localhost:${port}`);
+
+app.get("/", (req, res) => {
+  res.json({ ok: true, name: "gestao-financeira-api" });
+});
 });
